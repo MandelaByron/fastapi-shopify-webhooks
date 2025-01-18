@@ -35,4 +35,3 @@ def process_webhook(payload):
         return f"SKU not found in the sheet.{e}"
 
     
-{'inventory_item_id': 45254738804781, 'available': 43, 'location_id': 73823617069, 'sku': "SKU-1234", 'title': 'The Compare at Price Snowboard', 'updatedAt': '2025-01-12, 10:05:43'}
