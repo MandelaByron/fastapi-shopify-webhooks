@@ -1,0 +1,36 @@
+
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+
+  celery:
+    build: .
+    #celery -A app.celery_app.celery worker --loglevel=info
+    command: ["celery", "-A", "app.celery_app.celery", "worker", "--loglevel=info"]
+
+    depends_on:
+      - redis
+    env_file:
+      - .env
+
+
+  web:
+    build: .
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - celery
+      - redis
+    
+    env_file:
+      - .env
